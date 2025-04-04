@@ -1,11 +1,11 @@
-<!-- index.html -->
+<!-- index.html (updated status section) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CitizenConnect - Centralized Complaint System</title>
-    <link rel="stylesheet" href="citizen.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
@@ -51,12 +51,17 @@
 
             <div class="status-section glass-card">
                 <h2>Complaint Status</h2>
-                <div id="complaintList"></div>
+                <div class="status-header">
+                    <span>Total Complaints: <span id="totalComplaints">0</span></span>
+                    <button id="refreshBtn" class="refresh-btn">Refresh</button>
+                </div>
+                <div id="complaintList" class="complaint-list"></div>
+                <p id="noComplaints" class="no-complaints">No complaints submitted yet</p>
             </div>
         </main>
 
         <footer>
-            <p>&copy; 2025 CitizenConnect. All rights reserved.</p>
+            <p>© 2025 CitizenConnect. All rights reserved.</p>
         </footer>
     </div>
     <script src="script.js"></script>
