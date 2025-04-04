@@ -1,4 +1,4 @@
-/* styles.css */
+/* styles.css (updated with new elements) */
 * {
     margin: 0;
     padding: 0;
@@ -102,12 +102,45 @@ textarea {
     color: white;
 }
 
+.status-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    color: white;
+}
+
+.refresh-btn {
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.refresh-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.complaint-list {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
 .complaint-item {
     background: rgba(255, 255, 255, 0.15);
     padding: 15px;
     border-radius: 8px;
     margin-bottom: 15px;
     color: white;
+}
+
+.no-complaints {
+    color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+    display: none;
 }
 
 footer {
