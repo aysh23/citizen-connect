@@ -1,15 +1,20 @@
-// script.js
+// script.js (improved version)
 class ComplaintSystem {
     constructor() {
         this.complaints = [];
         this.form = document.getElementById('complaintForm');
         this.complaintList = document.getElementById('complaintList');
+        this.totalComplaints = document.getElementById('totalComplaints');
+        this.noComplaints = document.getElementById('noComplaints');
+        this.refreshBtn = document.getElementById('refreshBtn');
         this.init();
     }
 
     init() {
         this.form.addEventListener('submit', (e) => this.handleSubmit(e));
+        this.refreshBtn.addEventListener('click', () => this.renderComplaints());
         this.loadComplaints();
+        this.updateUI();
     }
 
     handleSubmit(e) {
@@ -29,6 +34,7 @@ class ComplaintSystem {
         this.complaints.push(complaint);
         this.saveComplaints();
         this.renderComplaints();
+        this.updateUI();
         this.form.reset();
         this.showNotification('Complaint submitted successfully!');
     }
@@ -58,6 +64,12 @@ class ComplaintSystem {
 
     renderComplaints() {
         this.complaintList.innerHTML = '';
+        if (this.complaints.length === 0) {
+            this.noComplaints.style.display = 'block';
+            return;
+        }
+
+        this.noComplaints.style.display = 'none';
         this.complaints.forEach(complaint => {
             const div = document.createElement('div');
             div.className = 'complaint-item';
@@ -68,12 +80,16 @@ class ComplaintSystem {
                 }</p>
                 <p><strong>Issue:</strong> ${complaint.description}</p>
                 <p><strong>Location:</strong> ${complaint.location}</p>
-                <p><strong>Status:</strong> ${complaint.status}</p>
+                <p><strong>Status:</strong> <span class="status-${complaint.status.toLowerCase()}">${complaint.status}</span></p>
                 <p><strong>Department:</strong> ${complaint.department}</p>
                 <p><strong>Date:</strong> ${complaint.date}</p>
             `;
             this.complaintList.appendChild(div);
         });
+    }
+
+    updateUI() {
+        this.totalComplaints.textContent = this.complaints.length;
     }
 
     showNotification(message) {
@@ -88,7 +104,7 @@ class ComplaintSystem {
     }
 }
 
-// Add notification styles
+// Add notification and status styles
 const style = document.createElement('style');
 style.textContent = `
     .notification {
@@ -101,6 +117,15 @@ style.textContent = `
         border-radius: 8px;
         backdrop-filter: blur(10px);
         border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .status-pending {
+        color: #ffcc00;
+    }
+    .status-inprogress {
+        color: #00ccff;
+    }
+    .status-resolved {
+        color: #00ff00;
     }
 `;
 document.head.appendChild(style);
